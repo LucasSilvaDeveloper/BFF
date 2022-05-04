@@ -31,3 +31,12 @@ target/classes/application.properties
 target/classes/META-INF/MANIFEST.MF
 target/classes/META-INF/maven/br.com.bff/demo/pom.properties
 target/classes/META-INF/maven/br.com.bff/demo/pom.xml
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/jarRepositories.xml
+.idea/misc.xml
+.idea/runConfigurations.xml
+.idea/vcs.xml
+.idea/sonarlint/issuestore/index.pb
+target/classes/application.properties
+.idea/.gitignore
