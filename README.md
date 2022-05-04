@@ -1,4 +1,4 @@
 # BFF
 
-## André Dev Teste
+## André Dev
 ## Lucas Desenvolvedor
