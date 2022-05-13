@@ -2,10 +2,17 @@ package br.com.bff.model;
 
 import java.time.LocalDate;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.br.CPF;
 
 import lombok.AllArgsConstructor;
@@ -19,13 +26,12 @@ import lombok.Setter;
 @Getter
 @Setter
 @Builder
+@Entity
+@Table(name = "TB_USUARIO")
 public class Usuario {
 
-    //FIXME add atributos apra o usuario
-    // nome, data de cadastro, data de nascimento, cpf, email, telefone, data de atualização, id
-    // criar notações de geet e set build to string usando o lombok
-
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotNull
@@ -38,6 +44,12 @@ public class Usuario {
 	private String email;
 	
 	private String telefone;
-	
+
+	@CreationTimestamp
+	@Column(name = "data_atualizacao")
 	private LocalDate dataAtualizacao;
+
+	@UpdateTimestamp
+	@Column(name = "data_cadastro")
+	private LocalDate dataCadastro;
 }
