@@ -1,6 +1,7 @@
 package br.com.bff.model;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -47,9 +48,9 @@ public class Usuario {
 
 	@CreationTimestamp
 	@Column(name = "data_atualizacao")
-	private LocalDate dataAtualizacao;
+	private LocalDateTime dataAtualizacao;
 
 	@UpdateTimestamp
 	@Column(name = "data_cadastro")
-	private LocalDate dataCadastro;
+	private LocalDateTime dataCadastro;
 }
