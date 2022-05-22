@@ -52,3 +52,4 @@ src/main/java/br/com/bff/config/SwaggerConfig.java
 src/main/java/br/com/bff/controller/ExcelController.java
 src/main/java/br/com/bff/service/ExcelService.java
 .idea/
+target/classes/data.sql
