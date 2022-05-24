@@ -1,7 +1,15 @@
 package br.com.bff.model;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.RequiredArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,17 +19,9 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDateTime;
 
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-import org.hibernate.validator.constraints.br.CPF;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
-
+@ToString
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Getter
@@ -46,10 +46,12 @@ public class Usuario {
 	
 	private String telefone;
 
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@CreationTimestamp
 	@Column(name = "data_atualizacao")
 	private LocalDateTime dataAtualizacao;
 
+	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
 	@UpdateTimestamp
 	@Column(name = "data_cadastro")
 	private LocalDateTime dataCadastro;
