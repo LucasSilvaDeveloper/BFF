@@ -1,10 +1,14 @@
 package br.com.bff.controller;
 
 import br.com.bff.model.dto.UsuarioRequestDTO;
+import br.com.bff.model.enums.UsuarioFildOrdecacao;
 import br.com.bff.service.UsuarioService;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -14,9 +18,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
+import java.time.LocalDate;
 
 @Api(tags = "CRUD de usuario", produces = MediaType.APPLICATION_JSON_VALUE)
 @RequiredArgsConstructor
@@ -49,5 +55,19 @@ public class UsuarioController {
     @GetMapping
     public ResponseEntity findAll(){
         return usuarioService.findAll();
+    }
+
+    @ApiOperation("Buscar os usuario por filtro")
+    @GetMapping("/filter")
+    public ResponseEntity findByFilter(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) @ApiParam(value = "Data cadastro a partir de || format: dd/MM/yyyy in UTC") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroDe,
+            @RequestParam(required = false) @ApiParam(value = "Data cadastro ate || format: dd/MM/yyyy in UTC") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroAte,
+            @RequestParam(required = false) @ApiParam(value = "Data atualização a partir de || format: dd/MM/yyyy in UTC", hidden = true) @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataAtualizacaoDe,
+            @RequestParam(required = false) @ApiParam(value = "Data atualização ate || format: dd/MM/yyyy in UTC", hidden = true) @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataAtualizacaoAte,
+            @RequestParam UsuarioFildOrdecacao usuarioFildOrdecacao,
+            @RequestParam Sort.Direction ordenacao){
+        return usuarioService.findByFilter(usuarioFildOrdecacao, ordenacao ,nome, email, dataCadastroDe, dataCadastroAte, dataAtualizacaoDe, dataAtualizacaoAte);
     }
 }

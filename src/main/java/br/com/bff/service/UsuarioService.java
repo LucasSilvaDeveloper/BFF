@@ -2,15 +2,21 @@ package br.com.bff.service;
 
 import br.com.bff.model.Usuario;
 import br.com.bff.model.dto.UsuarioRequestDTO;
+import br.com.bff.model.enums.UsuarioFildOrdecacao;
+import br.com.bff.model.filter.UsuarioFilter;
 import br.com.bff.repository.UsuarioRepository;
+import br.com.bff.repository.customrepository.UsuarioCustomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -19,6 +25,7 @@ import java.util.Optional;
 public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
+    private final UsuarioCustomRepository usuarioCustomRepository;
     private final ModelMapper modelMapper;
 
     public ResponseEntity save(UsuarioRequestDTO usuarioRequestDTO) {
@@ -52,6 +59,24 @@ public class UsuarioService {
 
     public ResponseEntity findAll(){
         var usuarios = usuarioRepository.findAll();
+
+        return usuarios.isEmpty() ?
+                ResponseEntity.noContent().build() :
+                ResponseEntity.status(HttpStatus.OK).body(usuarios);
+    }
+
+    public ResponseEntity findByFilter(UsuarioFildOrdecacao usuarioFildOrdecacao, Sort.Direction ordenacao, String nome, String email, LocalDate dataCadastroDe, LocalDate dataCadastroAte, LocalDate dataAtualizacaoDe, LocalDate dataAtualizacaoAte) {
+        List<Usuario> usuarios = usuarioCustomRepository.findByFilter(
+                UsuarioFilter.builder()
+                        .nome(nome)
+                        .email(email)
+                        .dataCadastroDe(dataCadastroDe)
+                        .dataCadastroAte(dataCadastroAte)
+                        .dataAtualizacaoDe(dataAtualizacaoDe)
+                        .dataAtualizacaoAte(dataAtualizacaoAte)
+                        .build(),
+                        usuarioFildOrdecacao,
+                        ordenacao);
 
         return usuarios.isEmpty() ?
                 ResponseEntity.noContent().build() :
