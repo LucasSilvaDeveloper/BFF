@@ -64,12 +64,7 @@ public class UsuarioCustomRepository {
         query.where(filtros);
         query.orderBy(Sort.Direction.DESC.equals(ordenacao) ? builder.desc(from.get(usuarioFildOrdecacao.getDescricao())): builder.asc(from.get(usuarioFildOrdecacao.getDescricao())));
         TypedQuery<Usuario> createQuery = em.createQuery(query);
-        List<Usuario> resultList = createQuery.getResultList();
 
-        for (Usuario usuario : resultList) {
-            System.out.println(usuario);
-        }
-
-        return resultList;
+        return createQuery.getResultList();
     }
 }
