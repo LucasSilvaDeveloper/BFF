@@ -62,12 +62,13 @@ public class UsuarioController {
     public ResponseEntity findByFilter(
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String email,
+            @RequestParam(required = false) String cpf,
             @RequestParam(required = false) @ApiParam(value = "Data cadastro a partir de || format: dd/MM/yyyy in UTC") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroDe,
             @RequestParam(required = false) @ApiParam(value = "Data cadastro ate || format: dd/MM/yyyy in UTC") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroAte,
             @RequestParam(required = false) @ApiParam(value = "Data atualização a partir de || format: dd/MM/yyyy in UTC", hidden = true) @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataAtualizacaoDe,
             @RequestParam(required = false) @ApiParam(value = "Data atualização ate || format: dd/MM/yyyy in UTC", hidden = true) @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataAtualizacaoAte,
             @RequestParam UsuarioFildOrdecacao usuarioFildOrdecacao,
             @RequestParam Sort.Direction ordenacao){
-        return usuarioService.findByFilter(usuarioFildOrdecacao, ordenacao ,nome, email, dataCadastroDe, dataCadastroAte, dataAtualizacaoDe, dataAtualizacaoAte);
+        return usuarioService.findByFilter(usuarioFildOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte, dataAtualizacaoDe, dataAtualizacaoAte);
     }
 }

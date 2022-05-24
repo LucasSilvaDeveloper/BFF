@@ -65,11 +65,12 @@ public class UsuarioService {
                 ResponseEntity.status(HttpStatus.OK).body(usuarios);
     }
 
-    public ResponseEntity findByFilter(UsuarioFildOrdecacao usuarioFildOrdecacao, Sort.Direction ordenacao, String nome, String email, LocalDate dataCadastroDe, LocalDate dataCadastroAte, LocalDate dataAtualizacaoDe, LocalDate dataAtualizacaoAte) {
+    public ResponseEntity findByFilter(UsuarioFildOrdecacao usuarioFildOrdecacao, Sort.Direction ordenacao, String nome, String email, String cpf, LocalDate dataCadastroDe, LocalDate dataCadastroAte, LocalDate dataAtualizacaoDe, LocalDate dataAtualizacaoAte) {
         List<Usuario> usuarios = usuarioCustomRepository.findByFilter(
                 UsuarioFilter.builder()
                         .nome(nome)
                         .email(email)
+                        .cpf(cpf)
                         .dataCadastroDe(dataCadastroDe)
                         .dataCadastroAte(dataCadastroAte)
                         .dataAtualizacaoDe(dataAtualizacaoDe)

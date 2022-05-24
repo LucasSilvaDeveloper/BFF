@@ -35,6 +35,10 @@ public class UsuarioCustomRepository {
             filtros = builder.and(filtros, builder.like(builder.lower(from.get("nome")), builder.lower(builder.literal("%"+usuarioFilter.getNome()+"%"))));
         }
 
+        if (StringUtils.hasText(usuarioFilter.getCpf())) {
+            filtros = builder.and(filtros, builder.like(from.get("cpf"), builder.literal("%"+usuarioFilter.getCpf()+"%")));
+        }
+
         if (StringUtils.hasText(usuarioFilter.getEmail())) {
             filtros = builder.and(filtros, builder.like(builder.lower(from.get("email")), builder.lower(builder.literal("%"+usuarioFilter.getEmail()+"%"))));
         }

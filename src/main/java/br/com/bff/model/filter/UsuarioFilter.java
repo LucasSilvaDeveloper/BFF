@@ -13,6 +13,8 @@ public class UsuarioFilter {
 
     private String email;
 
+    private String cpf;
+
     private LocalDate dataCadastroDe;
 
     private LocalDate dataCadastroAte;
