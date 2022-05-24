@@ -51,24 +51,29 @@ public class UsuarioController {
         return usuarioService.update(usuarioRequestDTO, id);
     }
 
-    @ApiOperation("Buscar todos os usuario")
-    @GetMapping
-    public ResponseEntity findAll(){
-        return usuarioService.findAll();
-    }
-
-    @ApiOperation("Buscar os usuario por filtro")
+    @ApiOperation("Buscar os usuario por filtro, caso nao passe nenhum filtro ira trazer todos os usuarios da base")
     @GetMapping("/filter")
     public ResponseEntity findByFilter(
             @RequestParam(required = false) String nome,
             @RequestParam(required = false) String email,
             @RequestParam(required = false) String cpf,
-            @RequestParam(required = false) @ApiParam(value = "Data cadastro a partir de || format: dd/MM/yyyy in UTC") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroDe,
-            @RequestParam(required = false) @ApiParam(value = "Data cadastro ate || format: dd/MM/yyyy in UTC") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroAte,
-            @RequestParam(required = false) @ApiParam(value = "Data atualização a partir de || format: dd/MM/yyyy in UTC", hidden = true) @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataAtualizacaoDe,
-            @RequestParam(required = false) @ApiParam(value = "Data atualização ate || format: dd/MM/yyyy in UTC", hidden = true) @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataAtualizacaoAte,
+            @RequestParam(required = false) @ApiParam(value = "Data cadastro a partir de || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroDe,
+            @RequestParam(required = false) @ApiParam(value = "Data cadastro ate || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroAte,
             @RequestParam UsuarioFildOrdecacao usuarioFildOrdecacao,
             @RequestParam Sort.Direction ordenacao){
-        return usuarioService.findByFilter(usuarioFildOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte, dataAtualizacaoDe, dataAtualizacaoAte);
+        return usuarioService.findByFilter(usuarioFildOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte);
+    }
+
+    @ApiOperation("solicita um relatorio CSV por filtro")
+    @GetMapping("/relatorio-csv-by-filter")
+    public ResponseEntity relatorioByFilter(
+            @RequestParam(required = false) String nome,
+            @RequestParam(required = false) String email,
+            @RequestParam(required = false) String cpf,
+            @RequestParam(required = false) @ApiParam(value = "Data cadastro a partir de || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroDe,
+            @RequestParam(required = false) @ApiParam(value = "Data cadastro ate || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroAte,
+            @RequestParam UsuarioFildOrdecacao usuarioFildOrdecacao,
+            @RequestParam Sort.Direction ordenacao){
+        return usuarioService.findByFilter(usuarioFildOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte);
     }
 }
