@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import javax.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -26,6 +27,7 @@ public class UsuarioService {
 
     private final UsuarioRepository usuarioRepository;
     private final UsuarioCustomRepository usuarioCustomRepository;
+    private final RelatorioCSVService relatorioCSVService;
     private final ModelMapper modelMapper;
 
     public ResponseEntity save(UsuarioRequestDTO usuarioRequestDTO) {
@@ -72,5 +74,32 @@ public class UsuarioService {
         return usuarios.isEmpty() ?
                 ResponseEntity.noContent().build() :
                 ResponseEntity.status(HttpStatus.OK).body(usuarios);
+    }
+
+    public void generateRelatorioCSV(
+            UsuarioFildOrdecacao usuarioFildOrdecacao,
+            Sort.Direction ordenacao,
+            String nome,
+            String email,
+            String cpf,
+            LocalDate dataCadastroDe,
+            LocalDate dataCadastroAte,
+            HttpServletResponse response,
+            List<String> colunas) {
+
+        relatorioCSVService.generateReportUsuarioToCSV(
+                response,
+                usuarioCustomRepository.findByFilter(
+                        UsuarioFilter.builder()
+                                .nome(nome)
+                                .email(email)
+                                .cpf(cpf)
+                                .dataCadastroDe(dataCadastroDe)
+                                .dataCadastroAte(dataCadastroAte)
+                                .build(),
+                        usuarioFildOrdecacao,
+                        ordenacao),
+                colunas);
+
     }
 }
