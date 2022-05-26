@@ -48,8 +48,5 @@ target/classes/application.properties
 .idea/sonarlint/issuestore/e/2/e2e4985b3e9fd5a5ccaafa7fe4e53ec8fade2321
 .idea/sonarlint/issuestore/3/c/3ca738d445b1ac5ea83f202a1686d4accd042411
 .idea/sonarlint/issuestore/e/1/e14fa33a5f4d36f0eb3522d72bce6baa93262b86
-src/main/java/br/com/bff/config/SwaggerConfig.java
-src/main/java/br/com/bff/controller/ExcelController.java
-src/main/java/br/com/bff/service/ExcelService.java
 .idea/
 target/classes/data.sql
