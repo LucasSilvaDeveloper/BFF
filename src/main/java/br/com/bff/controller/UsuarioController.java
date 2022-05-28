@@ -2,8 +2,8 @@ package br.com.bff.controller;
 
 import br.com.bff.model.dto.UsuarioRequestDTO;
 import br.com.bff.model.enums.UsuarioFildOrdecacao;
-import br.com.bff.service.RelatorioCSVService;
 import br.com.bff.service.UsuarioService;
+import br.com.bff.util.Constants;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -36,7 +36,6 @@ import java.util.List;
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
-    private final RelatorioCSVService relatorioCSVService;
 
     @ApiOperation("Cadastrar novo Usuario")
     @PostMapping
@@ -72,8 +71,17 @@ public class UsuarioController {
 
     @ApiImplicitParams(value = {
             @ApiImplicitParam(name = "colunas", value = "Colunas para o relatorio, para selecionar mais de uma coluna seguro o CTRL e selecione as colunas", dataType = "string", allowMultiple= true,
-                    allowableValues = "Todas as colunas, Nome,CPF, Email, Telefone, DataAtualizacao, DataCadastro",
-                    paramType = "query", defaultValue = "Todas as colunas", required = true)
+                    allowableValues = Constants.TODAS_COLUNAS + ", "
+                                    + Constants.NOME + ", "
+                                    + Constants.CPF + ", "
+                                    + Constants.EMAIL + ", "
+                                    + Constants.TELEFONE + ", "
+                                    + Constants.DATA_CADASTRO + ", "
+                                    + Constants.DATA_ATUALIZACAO,
+                    paramType = "query", defaultValue = "Todas as colunas", required = true),
+            @ApiImplicitParam(name = "formatoData", value = "Formatos de data da saida do arquivo", dataType = "string", allowMultiple= false,
+                    allowableValues = "dd/MM/yyyy, dd/MM/yyyy HH:mm:ss, HH:mm:ss, dd/MM/yyyy HH:mm, yyyy-MM-dd",
+                    paramType = "query", defaultValue = "dd/MM/yyyy", required = true)
     })
     @ApiOperation("solicita um relatorio CSV por filtro, caso não seja selecionada nenhuma coluna ele ira trazer todas as colunas")
     @GetMapping(value = "/relatorio-csv-by-filter", produces = "text/csv")
@@ -86,8 +94,9 @@ public class UsuarioController {
             @RequestParam(required = false) @ApiParam(value = "Data cadastro ate || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroAte,
             @RequestParam UsuarioFildOrdecacao usuarioFildOrdecacao,
             @RequestParam Sort.Direction ordenacao,
-            @RequestParam(required = false) List<String> colunas){
-         usuarioService.generateRelatorioCSV(usuarioFildOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte, response, colunas);
+            @RequestParam(required = false) List<String> colunas,
+            @RequestParam(required = false) String formatoData){
+         usuarioService.generateRelatorioCSV(usuarioFildOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte, response, colunas, formatoData);
     }
 
 }

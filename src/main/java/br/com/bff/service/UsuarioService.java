@@ -85,7 +85,8 @@ public class UsuarioService {
             LocalDate dataCadastroDe,
             LocalDate dataCadastroAte,
             HttpServletResponse response,
-            List<String> colunas) {
+            List<String> colunas,
+            String formatoData) {
 
         relatorioCSVService.generateReportUsuarioToCSV(
                 response,
@@ -99,7 +100,9 @@ public class UsuarioService {
                                 .build(),
                         usuarioFildOrdecacao,
                         ordenacao),
-                colunas);
+                colunas,
+                formatoData);
 
     }
+
 }
