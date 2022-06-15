@@ -47,12 +47,12 @@ public class Usuario {
 	private String telefone;
 
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@CreationTimestamp
+	@UpdateTimestamp
 	@Column(name = "data_atualizacao")
 	private LocalDateTime dataAtualizacao;
 
 	@JsonFormat(pattern = "dd/MM/yyyy HH:mm:ss")
-	@UpdateTimestamp
+	@CreationTimestamp
 	@Column(name = "data_cadastro")
 	private LocalDateTime dataCadastro;
 }
