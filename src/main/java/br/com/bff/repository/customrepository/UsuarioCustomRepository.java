@@ -1,7 +1,7 @@
 package br.com.bff.repository.customrepository;
 
 import br.com.bff.model.Usuario;
-import br.com.bff.model.enums.UsuarioFildOrdecacao;
+import br.com.bff.model.enums.UsuarioFieldOrdecacao;
 import br.com.bff.model.filter.UsuarioFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -23,7 +23,7 @@ public class UsuarioCustomRepository {
 
     private final EntityManager em;
 
-    public List<Usuario> findByFilter(UsuarioFilter usuarioFilter, UsuarioFildOrdecacao usuarioFildOrdecacao, Sort.Direction ordenacao){
+    public List<Usuario> findByFilter(UsuarioFilter usuarioFilter, UsuarioFieldOrdecacao usuarioFieldOrdecacao, Sort.Direction ordenacao){
 
         CriteriaBuilder builder = em.getCriteriaBuilder();
         CriteriaQuery<Usuario> query = builder.createQuery(Usuario.class);
@@ -66,7 +66,7 @@ public class UsuarioCustomRepository {
         }
 
         query.where(filtros);
-        query.orderBy(Sort.Direction.DESC.equals(ordenacao) ? builder.desc(from.get(usuarioFildOrdecacao.getDescricao())): builder.asc(from.get(usuarioFildOrdecacao.getDescricao())));
+        query.orderBy(Sort.Direction.DESC.equals(ordenacao) ? builder.desc(from.get(usuarioFieldOrdecacao.getDescricao())): builder.asc(from.get(usuarioFieldOrdecacao.getDescricao())));
         TypedQuery<Usuario> createQuery = em.createQuery(query);
 
         return createQuery.getResultList();

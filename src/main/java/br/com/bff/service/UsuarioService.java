@@ -2,7 +2,7 @@ package br.com.bff.service;
 
 import br.com.bff.model.Usuario;
 import br.com.bff.model.dto.UsuarioRequestDTO;
-import br.com.bff.model.enums.UsuarioFildOrdecacao;
+import br.com.bff.model.enums.UsuarioFieldOrdecacao;
 import br.com.bff.model.filter.UsuarioFilter;
 import br.com.bff.repository.UsuarioRepository;
 import br.com.bff.repository.customrepository.UsuarioCustomRepository;
@@ -59,7 +59,7 @@ public class UsuarioService {
         }
     }
 
-    public ResponseEntity findByFilter(UsuarioFildOrdecacao usuarioFildOrdecacao, Sort.Direction ordenacao, String nome, String email, String cpf, LocalDate dataCadastroDe, LocalDate dataCadastroAte) {
+    public ResponseEntity findByFilter(UsuarioFieldOrdecacao usuarioFieldOrdecacao, Sort.Direction ordenacao, String nome, String email, String cpf, LocalDate dataCadastroDe, LocalDate dataCadastroAte) {
         List<Usuario> usuarios = usuarioCustomRepository.findByFilter(
                 UsuarioFilter.builder()
                         .nome(nome)
@@ -68,7 +68,7 @@ public class UsuarioService {
                         .dataCadastroDe(dataCadastroDe)
                         .dataCadastroAte(dataCadastroAte)
                         .build(),
-                        usuarioFildOrdecacao,
+                usuarioFieldOrdecacao,
                         ordenacao);
 
         return usuarios.isEmpty() ?
@@ -77,7 +77,7 @@ public class UsuarioService {
     }
 
     public void generateRelatorioCSV(
-            UsuarioFildOrdecacao usuarioFildOrdecacao,
+            UsuarioFieldOrdecacao usuarioFieldOrdecacao,
             Sort.Direction ordenacao,
             String nome,
             String email,
@@ -98,7 +98,7 @@ public class UsuarioService {
                                 .dataCadastroDe(dataCadastroDe)
                                 .dataCadastroAte(dataCadastroAte)
                                 .build(),
-                        usuarioFildOrdecacao,
+                        usuarioFieldOrdecacao,
                         ordenacao),
                 colunas,
                 formatoData);

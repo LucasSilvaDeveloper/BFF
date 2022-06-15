@@ -5,14 +5,14 @@ import lombok.Getter;
 
 @Getter
 @ApiModel
-public enum UsuarioFildOrdecacao {
+public enum UsuarioFieldOrdecacao {
     ID("id"),
     NOME("nome"),
     DATA_CADASTRO("dataCadastro");
 
     public final String descricao;
 
-    private UsuarioFildOrdecacao(String descricao){
+    private UsuarioFieldOrdecacao(String descricao){
         this.descricao = descricao;
     }
 

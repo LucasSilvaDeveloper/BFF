@@ -1,7 +1,7 @@
 package br.com.bff.controller;
 
 import br.com.bff.model.dto.UsuarioRequestDTO;
-import br.com.bff.model.enums.UsuarioFildOrdecacao;
+import br.com.bff.model.enums.UsuarioFieldOrdecacao;
 import br.com.bff.service.UsuarioService;
 import br.com.bff.util.Constants;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -64,9 +64,9 @@ public class UsuarioController {
             @RequestParam(required = false) String cpf,
             @RequestParam(required = false) @ApiParam(value = "Data cadastro a partir de || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroDe,
             @RequestParam(required = false) @ApiParam(value = "Data cadastro ate || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroAte,
-            @RequestParam UsuarioFildOrdecacao usuarioFildOrdecacao,
+            @RequestParam UsuarioFieldOrdecacao usuarioFieldOrdecacao,
             @RequestParam Sort.Direction ordenacao){
-        return usuarioService.findByFilter(usuarioFildOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte);
+        return usuarioService.findByFilter(usuarioFieldOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte);
     }
 
     @ApiImplicitParams(value = {
@@ -92,11 +92,11 @@ public class UsuarioController {
             @RequestParam(required = false) String cpf,
             @RequestParam(required = false) @ApiParam(value = "Data cadastro a partir de || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroDe,
             @RequestParam(required = false) @ApiParam(value = "Data cadastro ate || format: dd/MM/yyyy") @JsonFormat(pattern = "dd/MM/yyyy") LocalDate dataCadastroAte,
-            @RequestParam UsuarioFildOrdecacao usuarioFildOrdecacao,
+            @RequestParam UsuarioFieldOrdecacao usuarioFieldOrdecacao,
             @RequestParam Sort.Direction ordenacao,
             @RequestParam(required = false) List<String> colunas,
             @RequestParam(required = false) String formatoData){
-         usuarioService.generateRelatorioCSV(usuarioFildOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte, response, colunas, formatoData);
+         usuarioService.generateRelatorioCSV(usuarioFieldOrdecacao, ordenacao ,nome, email, cpf, dataCadastroDe, dataCadastroAte, response, colunas, formatoData);
     }
 
 }
